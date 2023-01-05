@@ -1,0 +1,78 @@
+version: '2.4'
+networks:
+ duc:
+    ipam:
+      driver: default
+      config:
+        - subnet: 192.168.0.0/24
+          gateway: 192.168.0.1
+services:
+#web
+  web1:
+    # image: web1
+    build: ./web/web1
+    container_name: web01
+    restart: always 
+    networks:
+      duc:
+        ipv4_address: 192.168.0.2
+    volumes: 
+      - "web-file:/var/log/nginx"
+  web2:
+    # image: web2
+    build: ./web/web2
+    container_name: web02
+    restart: always 
+    networks:
+      duc:
+        ipv4_address: 192.168.0.3
+    volumes: 
+      - "web-file:/var/log/nginx/"
+# proxy  
+  proxy1:
+    build: ./Lb/Lb1
+    container_name: proxy1
+    networks:
+      duc:
+        ipv4_address: 192.168.0.4
+    stdin_open: true
+    tty: true
+    cap_add:
+      - NET_ADMIN
+    volumes: 
+      - "ha-file:/etc/haproxy"
+      - "keep-file:/etc/keepalived"
+      
+  proxy2:
+    build: ./Lb/Lb2
+    container_name: proxy2
+    networks:
+      duc:
+        ipv4_address: 192.168.0.5
+    stdin_open: true
+    tty: true
+    cap_add:
+      - NET_ADMIN
+    volumes: 
+      - "ha-file:/etc/haproxy"
+      - "keep-file:/etc/keepalived"
+
+volumes:
+  web-file:
+    driver: local
+    driver_opts:
+      type: none
+      device: /home/duc/Myimage/mount/web
+      o: bind
+  ha-file:
+    driver: local
+    driver_opts:
+      type: none
+      device: /home/duc/Myimage/mount/ha 
+      o: bind
+  keep-file:
+    driver: local
+    driver_opts:
+      type: none
+      device: /home/duc/Myimage/mount/keep
+      o: bind
