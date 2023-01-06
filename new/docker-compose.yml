@@ -1,0 +1,57 @@
+version: "2.4"
+networks:
+  eth0:
+    ipam:
+        driver: default
+        config:
+           - subnet: "10.0.0.0/16"
+             gateway: 10.0.0.1
+services:
+  web1:
+    build: .
+    networks:
+      eth0:
+          ipv4_address: 10.0.0.11
+    environment:
+      - service_name=nginx
+      # - service_2= ""
+    stdin_open: true
+    tty: true
+  web2: 
+    build: .
+    networks:
+      eth0:
+          ipv4_address: 10.0.0.12
+    environment:
+      - service_name=nginx  
+      # - service_2= ""
+    stdin_open: true
+    tty: true
+  ha1:
+    # image: hakeep1
+    build: .
+    networks:
+      eth0:
+          ipv4_address: 10.0.0.4
+    environment:
+      - service_name=haproxy
+      - service_2= keepalived
+      - keep= "keepalived1.conf"
+    stdin_open: true
+    tty: true
+    cap_add:
+      - NET_ADMIN
+  ha2:
+    # image: hakeep2
+    build: .
+    networks:
+      eth0:
+          ipv4_address: 10.0.0.5
+    environment:
+      - service_name=haproxy
+      - service_2= keepalived
+      - keep= "keepalived2.conf"
+    stdin_open: true
+    tty: true
+    cap_add:
+      - NET_ADMIN
