@@ -1,0 +1,32 @@
+Glance là một dịch vụ cho phép người dùng tạo và quản lý hình ảnh máy ảo và đĩa để khai thác các ứng dụng và dịch vụ trong môi trường điện toán đám mây đám mây.
+chức năng : 
++Tạo và quản lý hình ảnh máy ảo: Glance cho phép người dùng tạo và quản lý các hình ảnh máy ảo để sử dụng cho triển khai các ứng dụng và dịch vụ trên một môi trường điện toán đám mây OpenStack.
++Chia sẻ hình ảnh: Glance cho phép người dùng chia sẻ các hình ảnh máy ảo với các người dùng khác trong cùng một dự án hoặc đám mây OpenStack.
++Quản lý các phiên bản hình ảnh: Glance cho phép người dùng quản lý các phiên bản khác nhau của một hình ảnh máy ảo, để dễ dàng quay trở lại các phiên bản trước đó nếu cần thiết.
++Tìm kiếm hình ảnh: Glance cung cấp tính năng tìm kiếm hình ảnh để người dùng có thể tìm kiếm và sử dụng các hình ảnh máy ảo được chia sẻ trong đám mây OpenStack.
++Hỗ trợ nhiều định dạng hình ảnh: Glance hỗ trợ nhiều định dạng hình ảnh máy ảo khác nhau, bao gồm RAW, QEMU, ISO và VMDK.
+
+
+
+Thành phần:
+Glance là một dịch vụ quản lý hình ảnh trong OpenStack, cung cấp các tính năng quản lý và phân phối các hình ảnh máy ảo, các tệp iso và các tệp khác. 
+Các thành phần chính của Glance gồm:
++Glance API Server: Là thành phần trung tâm của Glance, cung cấp API cho phép các máy chủ khác truy cập và quản lý hình ảnh. Glance API Server có thể chạy độc lập hoặc trên một máy chủ điều khiển.
++Glance Registry: Là một máy chủ cơ sở dữ liệu đơn giản, lưu trữ các thông tin về hình ảnh và các metadata của nó, cung cấp khả năng tìm kiếm và truy vấn cho Glance API Server.
++Glance Store: Là một API lưu trữ, cung cấp các giao diện cho phép Glance lưu trữ hình ảnh trên nhiều loại lưu trữ khác nhau, bao gồm cả Swift, Ceph, NFS, và các lưu trữ Amazon S3.Glance Client: Là một công cụ dòng lệnh, cung cấp khả năng quản lý hình ảnh từ xa thông qua Glance API Server. 
++Glance Client cung cấp các lệnh để tạo, sửa đổi, xóa và tìm kiếm các hình ảnh.
+
+
+luồng: 
+Luồng hoạt động giữa các thành phần trong Glance OpenStack như sau:
+1 Người dùng sử dụng CLI hoặc giao diện web để tạo hoặc truy cập hình ảnh máy ảo.
+2 Glance API nhận yêu cầu và xác thực xem người dùng có quyền truy cập hình ảnh đó hay không bằng Keystone.
+3 Nếu yêu cầu hợp lệ, Glance API sẽ yêu cầu Glance Registry xem hình ảnh đó có tồn tại trong Glance hiện tại hay không.
+4 Glance Registry sẽ truy vấn metadata để xác định xem hình ảnh có tồn tại hay không.
+5 Nếu hình ảnh không tồn tại, Glance API sẽ trả về thông báo lỗi cho người dùng hoặc tạo mới hình ảnh theo yêu cầu.
+6 Nếu hình ảnh tồn tại, Glance API sẽ truy vấn metadata để xác định định dạng và kích thước của hình ảnh.
+7 Glance API sẽ yêu cầu Glance Store tải hình ảnh từ nơi lưu trữ.
+8 Sau khi tải xong, Glance API sẽ trả về hình ảnh đó cho người dùng hoặc sử dụng nó để tạo máy ảo.
+
+
+
