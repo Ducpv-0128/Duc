@@ -1,8 +1,0 @@
-- Buổi 1: Giới thiệu kiến trúc và chi tiết tính năng OpenStack.
-- Buổi 2: Vận hành cấp phát tài nguyên cơ bản trên OpenStack Horizon.
-- Buổi 3: Vận hành & giám sát CEPH cluster.
-- Buổi 4: Vận hành OpenStack Command Line.
-- Buổi 5: Vận hành & cấu hình hệ thống LMA.
-
-https://access.redhat.com/documentation/en-us/red_hat_openstack_platform/12/html/architecture_guide/components
-https://www.slideshare.net/HaimAteya/an-intrudction-to-openstack-2017
