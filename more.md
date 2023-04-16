@@ -47,8 +47,8 @@ với mạng self-service thì gói tin của instance trên compute node sẽ �
 	- Gói tin được giải mã VLAN và gửi đến instance đích.
 
 
-Trong mô hình mạng East-West scenario 2  của OpenStack, khi các instance trên cùng một Compute Node nhưng thuộc các mạng khác nhau muốn giao tiếp với nhau, luồng đi của gói tin sẽ theo các bước sau:	
-	-Gói tin được gửi từ VM1 thuộc mạng A đi đến bridge br-int.
+Trong mô hình mạng East-West scenario 2  của OpenStack, khi các instance trên cùng một Compute Node nhưng thuộc các mạng khác nhau muốn giao tiếp với nhau, luồng đi của gói tin sẽ theo các bước sau:
+	- Gói tin được gửi từ VM1 thuộc mạng A đi đến bridge br-int.
 	- br-int kiểm tra bảng MAC để xác định MAC address của VM2 thuộc mạng B có đang được lưu trữ trên Compute Node không. Nếu không có trong bảng MAC, br-int sẽ broadcast gói tin đến tất cả các VM thuộc cùng mạng và lưu lại thông tin MAC address của VM2.
 	- Gói tin được chuyển tiếp từ br-int đến br-tun, trong đó nó sẽ được đóng gói vào một gói tin GRE (Generic Routing Encapsulation) hoặc VXLAN (Virtual Extensible LAN) và đi qua mạng truyền thông dữ liệu (underlay network).
 	- Gói tin được nhận bởi bridge br-tun trên Compute Node đích, nó sẽ được giải mã và giải nén để lấy lại gói tin ban đầu.
