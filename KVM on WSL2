@@ -1,0 +1,41 @@
+- Install WSL2 on Windown10
+- Install Linux distro and setup KVM on linux
+- Fix error when use KVM on WSL2
+
+
+<h1> Install WSL2 </h1>
+- Run PowerShell with Adminstator
+- Run command: 
+```sh
+dism.exe /online /enable-feature /featurename:Microsoft-Windows-Subsystem-Linux /all /norestart
+
+dism.exe /online /enable-feature /featurename:VirtualMachinePlatform /all /norestart
+
+shutdown /r /t 0
+```
+- 
+`Note:` If has been Black screen when enable VirtualMachinePlatform, do this:
+```sh
+1. Enter the BIOS Menu
+2. In Advanced you may see a UMA Buffer size option. Set it to Auto, if Auto is not available just don't set it to 128 , 256, or 512.
+3. Save the changes and restart.
+```
+
+<h1> Install Linux distro and setup KVM on linux </h1>
+Use Microsoft Store get Ubuntu Distro
+Lauch Ubuntu and run commands: 
+```sh
+sudo apt update
+sudo apt install qemu qemu-kvm libvirt-clients libvirt-daemon-system bridge-utils virt-manager
+apt install x11-apps
+sudo systemctl enable --now libvirtd
+sudo systemctl enable --now virtlogd
+```
+
+<h1> Fix error when use KVM on WSL2</h1>
+If systemd workn't in WSL, do this:
+open Powershell with admin
+run: 
+wsl --update
+wsl.exe --shutdown
+Then, restart instance. Now,we can use systemd
